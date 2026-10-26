@@ -20,56 +20,6 @@ class _SignupPageState extends State<SignupPage> {
     super.dispose();
   }
 
-  Widget _buildTextField({
-    required String label,
-    required String hintText,
-    required TextEditingController controller,
-    required String? Function(String?) validator,
-    bool obscureText = false,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            color: Colors.black.withOpacity(0.7),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 5),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Colors.black.withOpacity(0.2),
-              width: 0.7,
-            ),
-          ),
-          padding: const EdgeInsets.fromLTRB(15, 0, 10, 10),
-          child: TextFormField(
-            controller: controller,
-            obscureText: obscureText,
-            decoration: InputDecoration(
-              hintText: hintText,
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-                fontSize: 12,
-              ),
-            ),
-            autofocus: false,
-            validator: validator,
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +30,7 @@ class _SignupPageState extends State<SignupPage> {
             Center(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
                   child: Form(
                     key: _formKey,
                     autovalidateMode: autoValidationMode,
@@ -88,18 +38,55 @@ class _SignupPageState extends State<SignupPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Center(
+                          child: SizedBox(
+                            height: 120,
+                            width: 120,
+                            child: Image.asset(
+                              'assets/images/solar-sun-logo.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 10),
+
+                        Center(
+                          child: Text('Welcome Back',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 5),
+
+                        Center(
+                          child: Text('Sign in with your company account to continue.',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 10),
+
                         Text('Work Email',
                         style: TextStyle(
                           fontSize: 10,
                           color: Colors.black.withOpacity(0.7),
                           fontWeight: FontWeight.bold
                         )),
+
                         const SizedBox(height: 5),
+                        
                         Container(
                           height: 50,
                           decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(15),
                             border: Border.all(
                               color: Colors.black.withOpacity(0.2),
                               width: 0.7
@@ -118,6 +105,64 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             autofocus: false,
                             validator: Validators.email,
+                          ),
+                        ),
+
+                        const SizedBox(height: 9),
+
+                        Text('Password',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.black.withOpacity(0.7),
+                          fontWeight: FontWeight.bold
+                        )),
+
+                        const SizedBox(height: 5),
+
+                        Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Colors.black.withOpacity(0.2),
+                              width: 0.7
+                            )
+                          ),
+                          padding: EdgeInsets.fromLTRB(15, 0, 10,10),                          
+                          child: TextFormField(
+                            decoration: const InputDecoration(hintText: 'Enter your password',
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            hintStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                //fontWeight: FontWeight.bold
+                              ),
+                            ),
+                            autofocus: false,
+                            obscureText: true,
+                            validator: Validators.password,
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        Center(
+                          child: SizedBox(
+                            width: 100,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  autoValidationMode = AutovalidateMode.onUserInteraction;
+                                });
+                          
+                                if (_formKey.currentState!.validate()) {
+                                  // All fields valid: proceed with submission logic
+                                }
+                              },
+                              child: const Text('Sign in'),
+                            ),
                           ),
                         ),
                       ],
